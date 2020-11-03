@@ -1,0 +1,17 @@
+img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border: 1px grey solid !important;
+  border-radius: 10%;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.mydashboard {
+  width: 100%;
+  min-height: 200px;
+  padding: 20px;
+  margin: 30px;
+  background-color: rgb(247, 242, 242);
+}
