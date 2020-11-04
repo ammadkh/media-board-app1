@@ -1,6 +1,6 @@
 import { User } from './../models/user.model';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -44,9 +44,8 @@ export class AuthService {
   constructor() {}
 
   getAuthToken(email: string, password: string): Observable<any> {
-    debugger;
     const user = this.users.find((x) => x.email === email && x.password === password);
-      if (!user) { throw Error('Username or password is incorrect'); }
+    if (!user) { throwError('Username or password is incorrect'); }
       // save user to local storage
 
     localStorage.setItem('currentUser', JSON.stringify(user));

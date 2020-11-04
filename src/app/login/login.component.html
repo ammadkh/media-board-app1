@@ -19,6 +19,9 @@
             Password is <strong>required</strong>
           </mat-error>
         </mat-form-field>
+        <mat-error *ngIf="!isUserValid">
+          <strong>Invalid Email or Password.</strong>
+        </mat-error>
         <button mat-raised-button class="full-width mt-3" color="primary" type="submit">Login</button>
       </div>
 

@@ -15,7 +15,7 @@
   <div class="mydashboard" cdkDropList #myList="cdkDropList" [cdkDropListData]="myImages"
     [cdkDropListConnectedTo]="[collections]" (cdkDropListDropped)="drop($event)" cdkDropListOrientation="horizontal">
     <div class="row">
-        <div class="col-md-2 col-sm-12" *ngFor="let image of myImages" cdkDrag>
+        <div class="col-md-2 col-sm-12 text-center" *ngFor="let image of myImages" cdkDrag>
           <img [src]="image.imageUrl">
         </div>
     </div>

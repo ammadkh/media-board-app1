@@ -20,6 +20,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginComponent implements OnInit {
   group: FormGroup;
   user: User;
+  isUserValid = true;
   constructor(private fb: FormBuilder,
               private router: Router,
               private authService: AuthService
@@ -40,11 +41,15 @@ export class LoginComponent implements OnInit {
     }
     this.authService.getAuthToken(this.group.value.email, this.group.value.password).subscribe(
       res => {
+        debugger;
+        if (res == null) {
+          return this.isUserValid = false;
+        }
         this.user = res;
         console.log(this.user);
         this.router.navigate(['/home']);
       }
-    ), (error) => console.log(error);
+    ), (error) => console.log(error, 'error');
   }
 
 }
