@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -17,7 +19,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class LoginComponent implements OnInit {
   group: FormGroup;
+  user: User;
   constructor(private fb: FormBuilder,
+              private router: Router,
               private authService: AuthService
     ) {
     this.group = this.fb.group({
@@ -31,8 +35,16 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(event) {
-    this.authService.getAuthToken(this.group.value.email, this.group.value.password);
-    console.log(event);
+    if(this.group.invalid) {
+      return;
+    }
+    this.authService.getAuthToken(this.group.value.email, this.group.value.password).subscribe(
+      res => {
+        this.user = res;
+        console.log(this.user);
+        this.router.navigate(['/home']);
+      }
+    ), (error) => console.log(error);
   }
 
 }

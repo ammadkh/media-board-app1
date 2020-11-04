@@ -1,4 +1,6 @@
-<mat-toolbar color="primary">
-  <span>My Application</span>
+<mat-toolbar color="primary" *ngIf="currentUser">
+  <span>Hello, {{ currentUser.name }}</span>
+  <span class="spacer"></span>
+  <button mat-button class="full-width" (click)="logout()">Logout</button>
 </mat-toolbar>
 <router-outlet></router-outlet>

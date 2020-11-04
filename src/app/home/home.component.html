@@ -1,16 +1,16 @@
   <div class="mydashboard" cdkDropList #myList="cdkDropList" [cdkDropListData]="myImages" cdkDropListSortingDisabled
     [cdkDropListConnectedTo]="[imagesList]" (cdkDropListDropped)="drop($event)" cdkDropListOrientation="horizontal">
     <div class="row">
-        <div class="col-2" *ngFor="let image of myImages" cdkDrag>
-          <img [src]="image">
+        <div class="col-md-2" *ngFor="let image of myImages" cdkDrag>
+          <img [src]="image.imageUrl">
         </div>
     </div>
   </div>
   <div class="mydashboard" cdkDropList #imagesList="cdkDropList" cdkDropListSortingDisabled [cdkDropListConnectedTo]="[myList]"
-    [cdkDropListData]="images" (cdkDropListDropped)="drop($event)" cdkDropListOrientation="horizontal">
+    [cdkDropListData]="collection" (cdkDropListDropped)="drop($event)" cdkDropListOrientation="horizontal">
     <div class="row">
-        <div *ngFor="let image of images" cdkDrag class="col-2">
-          <img [src]="image">
+        <div *ngFor="let image of collection" cdkDrag class="col-md-2">
+          <img [src]="image.imageUrl">
         </div>
     </div>
   </div>
