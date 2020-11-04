@@ -17,6 +17,8 @@ export class HomeComponent implements OnInit {
   title = 'media-board-app';
   currentUser: User;
   collection: Collection[];
+  isLoading = false;
+  isCollectionVisible = false;
 
   constructor(
     private authService: AuthService,
@@ -24,11 +26,6 @@ export class HomeComponent implements OnInit {
   ) {
     this.authService.currentUser.subscribe(x => this.currentUser = x);
   }
-
-
-  images = [
-
-  ];
 
   myImages = [];
 
@@ -53,12 +50,18 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.myImages = this.currentUser.collection;
+    this.isLoading = true;
     this.collectionService.getCollections().subscribe(
       (res: Collection[]) => {
         console.log(this.currentUser.collection);
         this.collection = res.filter(x => this.currentUser.collection.some(c => c.id !== x.id) );
+        this.isLoading = false;
         console.log(this.collection);
       }
     );
+  }
+
+  showCollectionHandler() {
+    this.isCollectionVisible = true;
   }
 }

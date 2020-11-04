@@ -1,4 +1,17 @@
-  <div class="mydashboard" cdkDropList #myList="cdkDropList" [cdkDropListData]="myImages" cdkDropListSortingDisabled
+<div *ngIf="!isLoading">
+<div class="row justify-content-center mt-4">
+  <div class="col-3 align-self-center">
+    <h5 class="text-right">My Images</h5>
+  </div>
+  <div class="col-3 align-self-center">
+    <div class="button-container">
+      <button mat-mini-fab color="accent" (click)="showCollectionHandler()">
+        <mat-icon>add</mat-icon>
+      </button>
+  </div>
+  </div>
+</div>
+  <div class="mydashboard" cdkDropList #myList="cdkDropList" [cdkDropListData]="myImages"
     [cdkDropListConnectedTo]="[imagesList]" (cdkDropListDropped)="drop($event)" cdkDropListOrientation="horizontal">
     <div class="row">
         <div class="col-md-2" *ngFor="let image of myImages" cdkDrag>
@@ -6,7 +19,9 @@
         </div>
     </div>
   </div>
-  <div class="mydashboard" cdkDropList #imagesList="cdkDropList" cdkDropListSortingDisabled [cdkDropListConnectedTo]="[myList]"
+  <div *ngIf="isCollectionVisible">
+  <h5 class="text-center">Collection</h5>
+  <div class="mydashboard" cdkDropList #imagesList="cdkDropList" [cdkDropListConnectedTo]="[myList]"
     [cdkDropListData]="collection" (cdkDropListDropped)="drop($event)" cdkDropListOrientation="horizontal">
     <div class="row">
         <div *ngFor="let image of collection" cdkDrag class="col-md-2">
@@ -14,3 +29,5 @@
         </div>
     </div>
   </div>
+</div>
+</div>

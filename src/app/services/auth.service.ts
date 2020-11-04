@@ -45,18 +45,22 @@ export class AuthService {
 
   getAuthToken(email: string, password: string): Observable<any> {
     debugger;
-      const user = this.users.find((x) => x.email === email && x.password === password);
-      if (!user) throw Error('Username or password is incorrect');
+    const user = this.users.find((x) => x.email === email && x.password === password);
+      if (!user) { throw Error('Username or password is incorrect'); }
       // save user to local storage
 
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      this.currentUserSubject.next(user);
-      return of(user);
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+    return of(user);
   }
 
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+  }
+
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
   }
 }

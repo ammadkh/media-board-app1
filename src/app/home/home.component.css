@@ -8,6 +8,12 @@ img {
   cursor: pointer;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
+
 .mydashboard {
   width: 100%;
   min-height: 200px;
