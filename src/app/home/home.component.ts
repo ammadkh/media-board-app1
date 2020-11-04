@@ -19,18 +19,17 @@ export class HomeComponent implements OnInit {
   collection: Collection[];
   isLoading = false;
   isCollectionVisible = false;
+  myImages = [];
 
   constructor(
     private authService: AuthService,
     private collectionService: CollectionService
   ) {
-    this.authService.currentUser.subscribe(x => this.currentUser = x);
+    this.authService.currentUser.subscribe(x => this.currentUser = x); // get the current user
   }
 
-  myImages = [];
 
   drop(event: CdkDragDrop<any[]>) {
-    debugger;
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -54,9 +53,15 @@ export class HomeComponent implements OnInit {
     this.collectionService.getCollections().subscribe(
       (res: Collection[]) => {
         console.log(this.currentUser.collection);
-        this.collection = res.filter(x => this.currentUser.collection.some(c => c.id !== x.id) );
+        this.collection = res.filter(x => {
+          for (var i = 0; i < this.currentUser.collection.length; i++) {
+            if (x.id === this.currentUser.collection[i].id) {
+              return false;
+            }
+          }
+          return true;
+        }); // remove user media objects from available content
         this.isLoading = false;
-        console.log(this.collection);
       }
     );
   }
